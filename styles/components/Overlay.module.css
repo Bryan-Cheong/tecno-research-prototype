@@ -1,0 +1,30 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--Radius, 1rem);
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+/* .close_button {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: var(--Radius, 1rem);
+    background: var(--Grey, #ccc);
+    cursor: pointer;
+}
+ */
