@@ -110,7 +110,7 @@ export default function ChatPage({ mockMessages }: { mockMessages?: AgentChatMem
                 ref={chatSectionRef}
                 className={styles.chat_section}
             >
-                {renderMessages()}
+                {messages && renderMessages()}
                 {isLoading && <ResponseLoader />}
             </div>
             {/* Chat Box */}

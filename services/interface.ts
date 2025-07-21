@@ -67,10 +67,10 @@ export async function uploadFiles(
         await response_fetch.json() as BackendResponse<AgentChatMemory>
     )
 
-    if (!response.success) {
+    if (!response.success || !response.data) {
         throw new Error(response.error || 'File upload failed')
     }
-    return response.data!
+    return response.data
 }
 
 // --- Onboarding Service ---
@@ -88,13 +88,13 @@ async function startOnboardingChat(
         'POST'
     )
 
-    if (!response.success) {
+    if (!response.success || !response.data) {
         throw new Error(
             response.error || 'Failed to start onboarding chat'
         )
     }
 
-    return response.data!
+    return response.data
 }
 
 /**
@@ -142,7 +142,7 @@ export async function messageOnboardingChat(
         { message: message }
     )
 
-    if (!response.success) {
+    if (!response.success || !response.data) {
         throw new Error(
             response.error || 'Failed to send message'
         )
@@ -165,11 +165,11 @@ export async function getUserData(
         `/user/data/${userId}`
     )
 
-    if (!response.success) {
+    if (!response.success || !response.data) {
         throw new Error(
             response.error || 'Failed to fetch user data'
         )
     }
 
-    return response.data!
+    return response.data
 }
