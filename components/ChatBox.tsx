@@ -33,13 +33,19 @@ export default function ChatBox(
     // Mock response generator based on user input
     const generateMockResponse = (userInput: string): string => {
         const input = userInput.toLowerCase().trim()
+
+        // Research
+        if (input.includes('research')) {
+            // Instead of returning text, you'll want to trigger the ResearchAgent component
+            return "TRIGGER_RESEARCH_AGENT" // Special flag
+        }
     
         // Comprehensive response for the full answer
         if (input.includes('competitors: probably areias do seixo') || 
             (input.includes('areias') && input.includes('sextantio') && input.includes('finca') && 
             input.includes('stakeholder') && input.includes('opportunities') && input.includes('cultural') && 
             input.includes('strengths'))) {
-            return "Thank you for providing so much comprehensive information! I have recorded your competitor preferences (Areias do Seixo, Sextantio, and Finca Serena), stakeholder expectations from travel agents and banks, exciting opportunities in climate-positive retreats and artisan collaborations, your strong connection to Puglian traditions, and your current strengths in energy and local engagement as well as areas for improvement like waste tracking. This gives me an excellent foundation to develop a tailored ESG strategy for Borgo Egnazia. Let me now analyze this information and prepare comprehensive insights for you!"
+            return "Thank you for providing so much comprehensive information! I have recorded your competitor preferences (Areias do Seixo, Sextantio, and Finca Serena), stakeholder expectations from travel agents and banks, exciting opportunities in climate-positive retreats and artisan collaborations, your strong connection to Puglian traditions, and your current strengths in energy and local engagement as well as areas for improvement like waste tracking. This gives me an excellent foundation to develop a tailored ESG strategy for Borgo Egnazia. Send 'Research' and I will research the trends and drivers as well as their value at stake!"
         }
 
         // Competitors
@@ -149,7 +155,7 @@ export default function ChatBox(
         setIsLoading(true)
 
         try {
-            // Fake 500ms delay to show loading
+            // Fake 2000ms delay to show loading
             await new Promise(resolve => setTimeout(resolve, 2000))
             
             // Generate mock response

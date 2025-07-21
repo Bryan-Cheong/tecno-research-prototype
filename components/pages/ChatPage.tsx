@@ -14,8 +14,8 @@ import { useState, useEffect, useRef } from 'react'
 import ChatBox from '@/components/ChatBox'
 import UserMessage from '@/components/UserMessage'
 import AgentMessage from '@/components/AgentMessage'
-import ErrorMessage from '@/components/ErrorMessage'
 import ResponseLoader from '@/components/ResponseLoader'
+import ResearchAgent from '@/components/ResearchAgent'
 
 // Types
 import { AgentChatMemory } from '@/types/app.types'
@@ -36,33 +36,21 @@ export default function ChatPage({ mockMessages }: { mockMessages?: AgentChatMem
     const [messages, setMessages] = useState<AgentChatMemory[]>([])
     const chatSectionRef = useRef<HTMLDivElement>(null)
 
-useEffect(() => {
-    // Use mock messages if provided, otherwise use hardcoded message
-    const timer = setTimeout(() => {
-        if (mockMessages) {
-            setMessages(mockMessages)
-        } else {
-            setMessages([
-                {
-                    user_id: 'mock_user',
-                    chat_id: '1',
-                    content: INITIAL_AGENT_MESSAGE,
-                    source: 'agent',
-                    agent_name: 'Assistant',
-                    assets: [],
-                    timestamp: new Date().toISOString()
-                }
-            ])
-        }
-        setIsLoading(false)
-    }, 1000)
-
-    return () => clearTimeout(timer)
-}, [mockMessages])
-
     const renderMessages = () => {
         return (
             messages.map((message: AgentChatMemory) => {
+                // Check if this message should trigger the research agent
+                if (message.content === "TRIGGER_RESEARCH_AGENT") {
+                    return (
+                        <div key={message.chat_id} style={{ margin: '16px 0' }}>
+                            <ResearchAgent 
+                                setMessages={setMessages}
+                                chatId={message.chat_id}
+                            />
+                        </div>
+                    )
+                }
+
                 if (message.source === 'user') {
                     return (
                         <UserMessage 
@@ -83,6 +71,30 @@ useEffect(() => {
             })
         )
     }
+
+    useEffect(() => {
+        // Use mock messages if provided, otherwise use hardcoded message
+        const timer = setTimeout(() => {
+            if (mockMessages) {
+                setMessages(mockMessages)
+            } else {
+                setMessages([
+                    {
+                        user_id: 'mock_user',
+                        chat_id: '1',
+                        content: INITIAL_AGENT_MESSAGE,
+                        source: 'agent',
+                        agent_name: 'Assistant',
+                        assets: [],
+                        timestamp: new Date().toISOString()
+                    }
+                ])
+            }
+            setIsLoading(false)
+        }, 1000)
+
+        return () => clearTimeout(timer)
+    }, [mockMessages])
 
     // Auto-scroll to bottom when new messages are added
     useEffect(() => {
