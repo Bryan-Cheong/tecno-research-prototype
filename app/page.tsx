@@ -6,7 +6,6 @@
  * The messages are loaded from the server and
  * displayed in the chat section.
  */
-import { useState } from 'react'
 import { PanelRightOpen } from 'lucide-react'
 
 // Context
@@ -18,10 +17,11 @@ import DocumentPage from '@/components/pages/DocumentPage'
 
 // Styles
 import styles from '@/styles/pages/MainPage.module.css'
+import { useEffect } from 'react'
 
 export default function MainPage() {
 
-    const [isDocumentPanelOpen, setIsDocumentPanelOpen] = useState(false)
+    const {isDocumentPanelOpen, setIsDocumentPanelOpen} = useAppContext()
     
     const toggleDocumentPanel = () => {
         setIsDocumentPanelOpen(!isDocumentPanelOpen)
@@ -39,7 +39,7 @@ export default function MainPage() {
             <div 
                 className={`
                     ${styles.chat_section} 
-                    ${isDocumentPanelOpen ? styles.chat_section_narrow : ''}
+                    ${isDocumentPanelOpen? styles.chat_section_narrow : ''}
                 `}
             >
                 <ChatPage />
