@@ -17,40 +17,48 @@ import AgentMessage from '@/components/AgentMessage'
 import ErrorMessage from '@/components/ErrorMessage'
 import ResponseLoader from '@/components/ResponseLoader'
 
-// Context
-import { useAppContext } from '@/contexts/AppContext'
-
 // Types
 import { AgentChatMemory } from '@/types/app.types'
 
 // Styles
 import styles from '@/styles/components/pages/ChatPage.module.css'
 
-// Services
-import { getOnboardingChatHistory } from '@/services/interface'
+const INITIAL_AGENT_MESSAGE = `👋 Hello! I'm your Research Agent for Borgo Egnazia.
+I'd like to ask a few quick questions to tailor my analysis, feel free to skip anything you're unsure of!
+1. Who are 2-3 competitors you'd like to benchmark against?
+2. What ESG expectations have you received from stakeholders?
+3. Any new sustainability opportunities you're exploring?
+4. What cultural values shape your sustainability approach?
+5. Which ESG areas are you strongest in, and where would you like to improve?`
 
-export default function OnboardingPage() {
-
-    const { isLoading, setIsLoading } = useAppContext()
-    const { error, setError } = useAppContext()
-    const { isDocumentPanelOpen } = useAppContext()
+export default function ChatPage({ mockMessages }: { mockMessages?: AgentChatMemory[] }) {
+    const [isLoading, setIsLoading] = useState(true)
     const [messages, setMessages] = useState<AgentChatMemory[]>([])
     const chatSectionRef = useRef<HTMLDivElement>(null)
 
-    const loadData = async () => {
-        setIsLoading(true)
-        try {
-            const data: AgentChatMemory[] = await getOnboardingChatHistory()
-            console.log('Loaded messages from server:')
-            setMessages(data)
-            setError('')
-        } catch (err) {
-            console.error('Error loading messages:', err)
-            setError('Failed to load messages. Please try again later.')
-        } finally {
-            setIsLoading(false)
+useEffect(() => {
+    // Use mock messages if provided, otherwise use hardcoded message
+    const timer = setTimeout(() => {
+        if (mockMessages) {
+            setMessages(mockMessages)
+        } else {
+            setMessages([
+                {
+                    user_id: 'mock_user',
+                    chat_id: '1',
+                    content: INITIAL_AGENT_MESSAGE,
+                    source: 'agent',
+                    agent_name: 'Assistant',
+                    assets: [],
+                    timestamp: new Date().toISOString()
+                }
+            ])
         }
-    }
+        setIsLoading(false)
+    }, 1000)
+
+    return () => clearTimeout(timer)
+}, [mockMessages])
 
     const renderMessages = () => {
         return (
@@ -82,16 +90,6 @@ export default function OnboardingPage() {
             chatSectionRef.current.scrollTop = chatSectionRef.current.scrollHeight
         }
     }, [messages])
-
-    useEffect(() => {
-        loadData()
-    }, [])
-
-    const renderError = () => {
-        return (
-            <ErrorMessage error={error}/>
-        )
-    }
     
     return (
         <div className={styles.main_container}>
@@ -102,7 +100,6 @@ export default function OnboardingPage() {
             >
                 {renderMessages()}
                 {isLoading && <ResponseLoader />}
-                {error && renderError()}
             </div>
             {/* Chat Box */}
             <ChatBox 

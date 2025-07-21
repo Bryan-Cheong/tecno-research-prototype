@@ -7,16 +7,9 @@
 
 import { useState, useRef } from 'react'
 import { ArrowUp, Paperclip, FileText, X } from 'lucide-react'
-import { getTimestamp } from '@/utils/processing'
-
-// Context
-import { useAppContext } from '@/contexts/AppContext'
 
 // Types
 import { AgentChatMemory } from '@/types/app.types'
-
-// Services
-import { messageOnboardingChat, uploadFiles } from '@/services/interface'
 
 // Styles
 import styles from '@/styles/components/ChatBox.module.css'
@@ -31,12 +24,76 @@ export default function ChatBox(
     { messages, setMessages }: ChatBoxProps
 ) {
     const userId = 'user_001'
-    const agentName = 'onboarding_agent'
-    const { isLoading, setIsLoading } = useAppContext()
-    const { error, setError } = useAppContext()
+    const agentName = 'Assistant'
+    const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState<string>('')
     const [files, setFiles] = useState<File[]>([])
     const inputRef = useRef<HTMLTextAreaElement>(null)
+
+    // Mock response generator based on user input
+    const generateMockResponse = (userInput: string): string => {
+        const input = userInput.toLowerCase().trim()
+    
+        // Comprehensive response for the full answer
+        if (input.includes('competitors: probably areias do seixo') || 
+            (input.includes('areias') && input.includes('sextantio') && input.includes('finca') && 
+            input.includes('stakeholder') && input.includes('opportunities') && input.includes('cultural') && 
+            input.includes('strengths'))) {
+            return "Thank you for providing so much comprehensive information! I have recorded your competitor preferences (Areias do Seixo, Sextantio, and Finca Serena), stakeholder expectations from travel agents and banks, exciting opportunities in climate-positive retreats and artisan collaborations, your strong connection to Puglian traditions, and your current strengths in energy and local engagement as well as areas for improvement like waste tracking. This gives me an excellent foundation to develop a tailored ESG strategy for Borgo Egnazia. Let me now analyze this information and prepare comprehensive insights for you!"
+        }
+
+        // Competitors
+        if (input.includes('areias') || input.includes('sextantio') || input.includes('finca') || 
+            input.includes('competitor') || input.includes('benchmark')) {
+            return "Great! I've noted your competitor selection. These are excellent hospitality brands to benchmark against. I'll analyze their ESG practices and create comparisons that will help identify best practices and improvement opportunities for Borgo Egnazia."
+        }
+        
+        // Stakeholder expectations
+        if (input.includes('travel') || input.includes('carbon') || input.includes('plastic') || 
+            input.includes('bank') || input.includes('roadmap') || input.includes('stakeholder') ||
+            input.includes('agent') || input.includes('data') || input.includes('framework')) {
+            return "Thank you for sharing those stakeholder requirements. I understand the various expectations you're facing from different partners and institutions. I'll help you develop comprehensive ESG metrics and reporting frameworks that address these stakeholder needs while strengthening your market position."
+        }
+        
+        // Opportunities
+        if (input.includes('climate') || input.includes('retreat') || input.includes('season') || 
+            input.includes('eco') || input.includes('tourism') || input.includes('artisan') || 
+            input.includes('collaboration') || input.includes('opportunities') || input.includes('exploring')) {
+            return "Those are innovative sustainability opportunities! I can see you're thinking strategically about new offerings and partnerships. I'll research market trends and develop implementation strategies for these sustainability-focused initiatives that align with your brand values."
+        }
+        
+        // Cultural values
+        if (input.includes('puglian') || input.includes('tradition') || input.includes('local') || 
+            input.includes('cultural') || input.includes('heritage') || input.includes('community') ||
+            input.includes('values') || input.includes('approach')) {
+            return "Your commitment to local culture and community is a powerful foundation for your sustainability strategy. This authentic connection to place and people can be a key differentiator. I'll explore how these values can enhance your ESG narrative and stakeholder appeal."
+        }
+        
+        // Strengths and gaps
+        if (input.includes('energy') || input.includes('engagement') || input.includes('waste') || 
+            input.includes('tracking') || input.includes('strength') || input.includes('gap') || 
+            input.includes('improve') || input.includes('good') || input.includes('great')) {
+            return "Thanks for that honest assessment of your current ESG position. Understanding both strengths and improvement areas is crucial for developing an effective strategy. I'll research best practices and systems that can help address the gaps while building on your existing strengths."
+        }
+        
+        // General ESG/sustainability
+        if (input.includes('esg') || input.includes('sustainability')) {
+            return "ESG integration is crucial for hospitality leaders like Borgo Egnazia. I can help you develop comprehensive strategies that align with your values while meeting modern sustainability standards."
+        }
+        
+        // Greetings
+        if (input.includes('hello') || input.includes('hi')) {
+            return "Hello! I'm ready to help analyze ESG opportunities for Borgo Egnazia. Feel free to share your thoughts on any of the questions I asked!"
+        }
+        
+        // Thanks
+        if (input.includes('thank') || input.includes('thanks')) {
+            return "You're welcome! Your insights are very helpful for developing tailored ESG strategies. Is there anything specific you'd like me to dive deeper into?"
+        }
+        
+        // Default response
+        return "That's valuable information! I'm processing your input to develop tailored ESG insights for Borgo Egnazia. Could you elaborate on any specific aspects you'd like me to focus on?"
+    }
 
     const chatInput = (
         event: React.ChangeEvent<HTMLTextAreaElement>
@@ -71,8 +128,8 @@ export default function ChatBox(
 
         const userMessage: AgentChatMemory = {
             user_id: userId,
-            chat_id: `${userId}-${agentName}-${getTimestamp()}`,
-            timestamp: getTimestamp(),
+            chat_id: `${userId}-${agentName}-${Date.now()}`,
+            timestamp: new Date().toISOString(),
             content: message.trim(),
             source: 'user',
             agent_name: agentName,
@@ -92,32 +149,39 @@ export default function ChatBox(
         setIsLoading(true)
 
         try {
-            let responseMessage: AgentChatMemory | null = null
+            // Fake 500ms delay to show loading
+            await new Promise(resolve => setTimeout(resolve, 2000))
             
-            if (files.length > 0) {
-                const filesToUpload = files
-                setFiles([])
-
-                // Upload files and get file upload response
-                responseMessage = await uploadFiles(
-                    userId,
-                    messageToSend,
-                    filesToUpload
-                )
-            } else {
-                // Send regular message
-                responseMessage = await messageOnboardingChat(
-                    userId,
-                    messageToSend
-                )
+            // Generate mock response
+            const responseContent = generateMockResponse(messageToSend)
+            
+            const responseMessage: AgentChatMemory = {
+                user_id: userId,
+                chat_id: `${userId}-${agentName}-${Date.now()}`,
+                timestamp: new Date().toISOString(),
+                content: responseContent,
+                source: 'agent',
+                agent_name: agentName,
+                assets: null
             }
 
-            // Add response messages to the chat
-            setMessages(prev => [...prev, responseMessage!])
-            setError('')
+            // Add response message to the chat
+            setMessages(prev => [...prev, responseMessage])
+            setFiles([]) // Clear files after sending
+            
         } catch (error) {
             console.error('Error sending message:', error)
-            setError('Failed to send message. Please try again later.')
+            // For prototype, we'll just show a generic error response
+            const errorResponse: AgentChatMemory = {
+                user_id: userId,
+                chat_id: `${userId}-${agentName}-${Date.now()}`,
+                timestamp: new Date().toISOString(),
+                content: "I'm having trouble processing your request right now. Please try again.",
+                source: 'agent',
+                agent_name: agentName,
+                assets: null
+            }
+            setMessages(prev => [...prev, errorResponse])
         } finally {
             setIsLoading(false)
         }
