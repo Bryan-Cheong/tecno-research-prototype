@@ -8,7 +8,6 @@
  */
 import { useState, useEffect } from 'react'
 import { Download } from 'lucide-react'
-import { useAppContext } from '@/contexts/AppContext'
 
 // Components
 import DocumentLoader from '@components/utils/DocumentLoader'
@@ -16,46 +15,34 @@ import DocumentLoader from '@components/utils/DocumentLoader'
 // Styles
 import styles from '@/styles/components/pages/DocumentPage.module.css'
 
-// Services
-import { getUserData } from '@/services/interface'
-
 export default function DocumentPage() {
-    const { isLoading, setIsLoading } = useAppContext()
-    const { error, setError } = useAppContext()
-    const [reportURL, setReportURL] = useState<string>('')
-
-    const loadData = async () => {
-        try {
-            const userData = await getUserData()
-            if (userData && userData.onboarding_report_url) {
-                setReportURL(userData.onboarding_report_url)
-            }
-        } catch (err) {
-            console.error('Error loading user data:', err)
-            setError('Failed to load document. Please try again later.')
-        }
-    }
+    const [isLoading, setIsLoading] = useState(true)
+    const reportURL = '/assets/sample.pdf'
 
     useEffect(() => {
-        loadData()
-    }, [isLoading])
+        // Simulate brief loading for smooth UX
+        const timer = setTimeout(() => {
+            setIsLoading(false)
+        }, 500)
+
+        return () => clearTimeout(timer)
+    }, [])
+
+    const handleDownload = () => {
+        const link = document.createElement('a')
+        link.href = reportURL
+        link.download = 'research_report.pdf'
+        link.click()
+    }
 
     const renderDocumentContent = () => {
         if (isLoading) {
             return <DocumentLoader />
         }
 
-        if (!reportURL) {
-            return (
-                <div className={styles.no_document}>
-                    No document available.
-                </div>
-            )
-        }
-
         return (
             <iframe
-                src={reportURL}
+                src={`${reportURL}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
                 className={styles.document_viewer}
                 title="Document Viewer"
             />
@@ -66,7 +53,7 @@ export default function DocumentPage() {
         <div className={styles.container}>
             <div className={styles.header}>
                 <span className={styles.title}>Document View</span>
-                <div className={styles.download_button}>
+                <div className={styles.download_button} onClick={handleDownload}>
                     <Download className={styles.download_icon} />
                 </div>
             </div>

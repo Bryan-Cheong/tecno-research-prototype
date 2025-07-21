@@ -1,0 +1,225 @@
+.container {
+    background: var(--Secondary);
+    border: 1px solid var(--Grey);
+    border-radius: var(--Radius);
+    padding: 2rem;
+    margin: 1rem 0;
+    color: var(--Primary);
+    max-width: 75%;
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.completion_header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.check_icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    color: #00C851;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+    color: #333; /* Darker text */
+}
+
+.completion_text {
+    font-size: 1.6rem;
+    color: #666; /* Darker grey */
+    margin: 0.5rem 0 0 0;
+}
+
+.research_plan {
+    margin-bottom: 2rem;
+}
+
+.step {
+    padding: 1.5rem 0;
+    border-left: 2px solid var(--Grey);
+    padding-left: 1.5rem;
+    margin-left: 1rem;
+    position: relative;
+}
+
+.step:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.step.active {
+    border-left-color: var(--Primary);
+}
+
+.step.active::before {
+    content: '';
+    position: absolute;
+    left: -0.6rem;
+    top: 2rem;
+    width: 1rem;
+    height: 1rem;
+    background: var(--Primary);
+    border-radius: 50%;
+}
+
+.step.completed {
+    border-left-color: #00C851;
+}
+
+.step.completed::before {
+    content: '✓';
+    position: absolute;
+    left: -0.8rem;
+    top: 1.8rem;
+    width: 1.4rem;
+    height: 1.4rem;
+    background: #00C851;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: white;
+}
+
+.step_header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.step_icon {
+    width: 2rem;
+    height: 2rem;
+    color: #888; /* Darker icon color */
+}
+
+.step.active .step_icon {
+    color: var(--Primary);
+}
+
+.step.completed .step_icon {
+    color: #00C851;
+}
+
+.step_title {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0;
+    color: #333; /* Darker title */
+}
+
+.step_description {
+    font-size: 1.4rem;
+    color: #666; /* Darker description */
+    margin: 0;
+    line-height: 2rem;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--Grey);
+}
+
+.time_estimate {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #666; /* Darker time estimate */
+    font-size: 1.4rem;
+}
+
+.clock_icon {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.edit_button {
+    background: transparent;
+    border: 1px solid #888; /* Darker border */
+    color: #666; /* Darker text */
+    padding: 0.8rem 1.6rem;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    font-size: 1.4rem;
+    transition: all 0.2s;
+}
+
+.edit_button:hover {
+    border-color: var(--Primary);
+    color: var(--Primary);
+}
+
+.start_button {
+    background: var(--Primary);
+    border: none;
+    color: var(--Secondary);
+    padding: 0.8rem 1.6rem;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: background 0.2s;
+}
+
+.start_button:hover:not(:disabled) {
+    background: #333;
+}
+
+.start_button:disabled {
+    background: #888; /* Darker disabled state */
+    cursor: not-allowed;
+}
+
+.view_report_button {
+    background: #00C851;
+    border: none;
+    color: white;
+    padding: 0.8rem 1.6rem;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    font-size: 1.4rem;
+    transition: background 0.2s;
+}
+
+.view_report_button:hover {
+    background: #00A043;
+}
+
+.play_icon {
+    width: 1.4rem;
+    height: 1.4rem;
+}
+
+/* Loading animation for active step */
+.step.active .step_icon {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
