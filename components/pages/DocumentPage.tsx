@@ -17,7 +17,7 @@ import styles from '@/styles/components/pages/DocumentPage.module.css'
 
 export default function DocumentPage() {
     const [isLoading, setIsLoading] = useState(true)
-    const reportURL = '/assets/sample.pdf'
+    const reportURL = '/assets/sample_research.pdf'
 
     useEffect(() => {
         // Simulate brief loading for smooth UX

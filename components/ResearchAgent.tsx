@@ -11,6 +11,10 @@ interface ResearchStep {
     title: string
     description: string
     status: 'pending' | 'active' | 'completed'
+    subItems?: {
+        category: string
+        items: string[]
+    }[]
 }
 
 interface ResearchAgentProps {
@@ -22,27 +26,36 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
     const [isResearching, setIsResearching] = useState(false)
     const [isCompleted, setIsCompleted] = useState(false)
     const [currentStep, setCurrentStep] = useState(-1)
+    const [completedSubItems, setCompletedSubItems] = useState<Set<string>>(new Set())
     const router = useRouter()
 
     const researchSteps: ResearchStep[] = [
         {
-          icon: <FileText className={styles.step_icon} />,
-          title: "Filter for Relevant Internal Documents",
-          description:
-            "Identify and filter Tecno's document repository for relevant information related to Borgo Egnazia's company profile, ESG goals and benchmark setup.",
-          status: "pending"
+            icon: <FileText className={styles.step_icon} />,
+            title: "Filter for Relevant Internal Documents",
+            description: "Scan and filter Tecno's knowledge base to identify relevant ESG frameworks, hospitality best practices, and sustainability data tailored to Borgo Egnazia's profile and objectives outlined in stage 1.",
+            status: "pending"
         },
         {
-          icon: <BarChart3 className={styles.step_icon} />,
-          title: "Research Trends and Value at Stake",
-          description:
-            "Research for key ESG trends and drivers relevant to Borgo Egnazia. Work out the risks, opportunities and likely value at stake for the business.",
-          status: "pending"
+            icon: <BarChart3 className={styles.step_icon} />,
+            title: "Research Trends and Value at Stake",
+            description: "Research for key ESG trends and drivers relevant to Borgo Egnazia. Work out the risks, opportunities and likely value at stake for the business.",
+            status: "pending",
+            subItems: [
+                {
+                    category: "ESG Trends and Drivers:",
+                    items: ["Regulation", "Technology", "Societal expectations", "Stakeholder pressure", "Industry forces"]
+                },
+                {
+                    category: "Value at Stake:",
+                    items: ["Compliance", "Reputation", "Cost savings and efficiency", "Risks", "Opportunities"]
+                }
+            ]
         },
         {
             icon: <PenTool className={styles.step_icon} />,
             title: "Create Comprehensive Report",
-            description: "Synthesize findings into a tailored report for Borgo Egnazia, including trends & drivers and value at stake.",
+            description: "Synthesize findings into a tailored ESG strategy for Borgo Egnazia, including benchmarks, improvement recommendations, and implementation roadmap.",
             status: 'pending'
         }
     ]
@@ -51,29 +64,48 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
         setIsResearching(true)
         setIsCompleted(false)
         setCurrentStep(0)
+        setCompletedSubItems(new Set())
         simulateResearchProgress()
     }
 
     const simulateResearchProgress = () => {
-        // Step through each research phase
-        researchSteps.forEach((step, index) => {
-            setTimeout(() => {
-                setCurrentStep(index)
-            }, index * 5000) // 5 seconds per step
-        })
+        // Step 1: Documents (10 seconds)
+        setTimeout(() => {
+            setCurrentStep(0)
+        }, 0)
+
+        // Step 2: Trends and Value at Stake with sub-items (30 seconds total)
+        setTimeout(() => {
+            setCurrentStep(1)
+            // Simulate sub-item completion for step 2
+            const step2SubItems = [
+                "Regulation", "Technology", "Societal expectations", "Stakeholder pressure", "Industry forces",
+                "Compliance", "Reputation", "Cost savings and efficiency", "Risks", "Opportunities"
+            ]
+            
+            step2SubItems.forEach((item, index) => {
+                setTimeout(() => {
+                    setCompletedSubItems(prev => new Set([...prev, item]))
+                }, (index + 1) * 2000) // 2 seconds per sub-item
+            })
+        }, 10000)
+
+        // Step 3: Report creation (10 seconds)
+        setTimeout(() => {
+            setCurrentStep(2)
+        }, 40000)
         
-        // Complete research after all steps
+        // Complete research
         setTimeout(() => {
             setIsResearching(false)
             setIsCompleted(true)
-            setCurrentStep(-1) // No active step when completed
+            setCurrentStep(-1)
             
-            // Add completion message to chat
             if (setMessages && chatId) {
                 const completionMessage: AgentChatMemory = {
                     user_id: 'mock_user',
                     chat_id: `${chatId}-completion`,
-                    content: "🎉 Great! Your ESG research report is complete. Click the button in the top-right to view your analysis covering ESG trends & drivers, value at stake assessment, and competitor benchmarking for Borgo Egnazia. Ready to develop your implementation strategy?",
+                    content: "🎉 Perfect! Your ESG research report is complete. Click the button in the top-right to view your analysis covering ESG trends & drivers, value at stake assessment, competitor benchmarking, and tailored recommendations for Borgo Egnazia. Ready to develop your implementation strategy?",
                     source: 'agent',
                     agent_name: 'Assistant',
                     assets: [],
@@ -81,7 +113,7 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
                 }
                 setMessages(prev => [...prev, completionMessage])
             }
-        }, researchSteps.length * 4000)
+        }, 50000)
     }
 
     const getStepStatus = (index: number) => {
@@ -91,10 +123,47 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
         return 'pending'
     }
 
-    const viewReport = () => {
-        // Navigate to the existing document page
-        router.push('/document')
-    }
+    const renderSubItems = (step: ResearchStep, stepIndex: number) => {
+    if (!step.subItems || stepIndex !== 1) return null
+    
+    const isStepActive = currentStep === stepIndex
+    const isStepCompleted = getStepStatus(stepIndex) === 'completed'
+    
+    if (!isStepActive && !isStepCompleted) return null
+
+    return (
+        <div className={styles.sub_items}>
+            <div className={styles.sub_items_grid}>
+                {step.subItems.map((category, categoryIndex) => (
+                    <div 
+                        key={categoryIndex} 
+                        className={styles.sub_category}
+                    >
+                        <h4 className={`${styles.sub_category_title} ${fonts.body}`}>
+                            {category.category}
+                        </h4>
+                        <div className={styles.sub_items_list}>
+                            {category.items.map((item, itemIndex) => {
+                                const isCompleted = completedSubItems.has(item) || isStepCompleted
+                                return (
+                                    <div 
+                                        key={itemIndex} 
+                                        className={`${styles.sub_item} ${isCompleted ? styles.completed : ''}`}
+                                    >
+                                        <div className={styles.checkbox}>
+                                            {isCompleted && <CheckCircle className={styles.check_small} />}
+                                        </div>
+                                        <span className={fonts.body}>{item}</span>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    )
+}
 
     return (
         <div className={styles.container}>
@@ -125,6 +194,7 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
                             <h3 className={`${styles.step_title} ${fonts.body}`}>{step.title}</h3>
                         </div>
                         <p className={`${styles.step_description} ${fonts.body}`}>{step.description}</p>
+                        {renderSubItems(step, index)}
                     </div>
                 ))}
             </div>
@@ -133,7 +203,7 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
                 <div className={styles.time_estimate}>
                     <Clock className={styles.clock_icon} />
                     <span className={fonts.body}>
-                        {isCompleted ? 'Analysis complete' : isResearching ? 'Researching...' : 'Ready in a few minutes'}
+                        {isCompleted ? 'Analysis complete' : isResearching ? 'Researching...' : 'Estimated time: 1 minute'}
                     </span>
                 </div>
                 

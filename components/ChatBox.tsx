@@ -36,8 +36,7 @@ export default function ChatBox(
 
         // Research
         if (input.includes('research')) {
-            // Instead of returning text, you'll want to trigger the ResearchAgent component
-            return "TRIGGER_RESEARCH_AGENT" // Special flag
+            return "TRIGGER_RESEARCH_AGENT" 
         }
     
         // Comprehensive response for the full answer
@@ -45,7 +44,7 @@ export default function ChatBox(
             (input.includes('areias') && input.includes('sextantio') && input.includes('finca') && 
             input.includes('stakeholder') && input.includes('opportunities') && input.includes('cultural') && 
             input.includes('strengths'))) {
-            return "Thank you for providing so much comprehensive information! I have recorded your competitor preferences (Areias do Seixo, Sextantio, and Finca Serena), stakeholder expectations from travel agents and banks, exciting opportunities in climate-positive retreats and artisan collaborations, your strong connection to Puglian traditions, and your current strengths in energy and local engagement as well as areas for improvement like waste tracking. This gives me an excellent foundation to develop a tailored ESG strategy for Borgo Egnazia. Send 'Research' and I will research the trends and drivers as well as their value at stake!"
+            return "Thank you for providing so much comprehensive information! I have recorded your competitor preferences (Areias do Seixo, Sextantio, and Finca Serena), stakeholder expectations from travel agents and banks, exciting opportunities in climate-positive retreats and artisan collaborations, your strong connection to Puglian traditions, and your current strengths in energy and local engagement as well as areas for improvement like waste tracking. This gives me an excellent foundation to develop a tailored ESG strategy for Borgo Egnazia. Ready for me to start researching the trends and value at stake? Or do you want to add more information?"
         }
 
         // Competitors
