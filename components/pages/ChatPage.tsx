@@ -23,13 +23,14 @@ import { AgentChatMemory } from '@/types/app.types'
 // Styles
 import styles from '@/styles/components/pages/ChatPage.module.css'
 
-const INITIAL_AGENT_MESSAGE = `👋 Hello! I'm your Research Agent for Borgo Egnazia.
-I'd like to ask a few quick questions to tailor my analysis, feel free to skip anything you're unsure of!
-1. Who are 2-3 competitors you'd like to benchmark against?
-2. What ESG expectations have you received from stakeholders?
-3. Any new sustainability opportunities you're exploring?
-4. What cultural values shape your sustainability approach?
-5. Which ESG areas are you strongest in, and where would you like to improve?`
+const INITIAL_AGENT_MESSAGE = `👋 Hello, I’m your Strategy & Reporting Agent, designed to help kick-start your ESG journey.
+I see that you're operating in the hotel industry, and you're looking to develop actionable 
+strategies to meet your Environmental, Social, and Governance (ESG) goals.I'm here 
+to guide you through this process, from identifying relevant initiatives to drafting 
+tailored ESG strategies and reports aligned with global standards like the SDGs and GRI-lite.
+To get started, simply type "Strategy" and I will generate a report containing a curated 
+list of practical strategies your company can begin implementing right away. Let’s 
+co-create a sustainability roadmap that drives real impact. 🌱`
 
 export default function ChatPage({ mockMessages }: { mockMessages?: AgentChatMemory[] }) {
     const [isLoading, setIsLoading] = useState(true)

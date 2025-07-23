@@ -38,19 +38,23 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
         },
         {
             icon: <BarChart3 className={styles.step_icon} />,
-            title: "Research Trends and Value at Stake",
-            description: "Research for key ESG trends and drivers relevant to Borgo Egnazia. Work out the risks, opportunities and likely value at stake for the business.",
+            title: "Design Strategy Foundations",
+            description: "Lay the groundwork for Borgo Egnazia’s ESG strategy by defining ambition level, engaging stakeholders, and identifying key areas for sustainability innovation and impact.",
             status: "pending",
             subItems: [
-                {
-                    category: "ESG Trends and Drivers:",
-                    items: ["Regulation", "Technology", "Societal expectations", "Stakeholder pressure", "Industry forces"]
-                },
-                {
-                    category: "Value at Stake:",
-                    items: ["Compliance", "Reputation", "Cost savings and efficiency", "Risks", "Opportunities"]
-                }
+        {
+            category: "Strategic Foundations",
+            items: ["Ambition", "Double Materiality", "Stakeholder Co-creation"]
+        },
+        {
+            category: "Sustainability Initiatives",
+            items: [
+                "Systemic Impact",
+                "Monetisation",
+                "Sustainability-oriented Innovation"
             ]
+        }
+                    ]
         },
         {
             icon: <PenTool className={styles.step_icon} />,
@@ -105,7 +109,7 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
                 const completionMessage: AgentChatMemory = {
                     user_id: 'mock_user',
                     chat_id: `${chatId}-completion`,
-                    content: "🎉 Perfect! Your ESG research report is complete. Click the button in the top-right to view your analysis covering ESG trends & drivers, value at stake assessment, competitor benchmarking, and tailored recommendations for Borgo Egnazia. Ready to develop your implementation strategy?",
+                    content: "🎯 Great! Your ESG strategy report is ready. Click the button in the top-right to view a curated list of initiatives designed to kick-start Borgo Egnazia’s sustainability journey — including goal alignment, phased action plans, and tailored strategies across environmental, social, and governance dimensions. Ready to put your ESG plan into action?",
                     source: 'agent',
                     agent_name: 'Assistant',
                     assets: [],

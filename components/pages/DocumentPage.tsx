@@ -17,7 +17,7 @@ import styles from '@/styles/components/pages/DocumentPage.module.css'
 
 export default function DocumentPage() {
     const [isLoading, setIsLoading] = useState(true)
-    const reportURL = '/assets/sample_research.pdf'
+    const reportURL = '/assets/strategy_report.pdf'
 
     useEffect(() => {
         // Simulate brief loading for smooth UX
@@ -31,7 +31,7 @@ export default function DocumentPage() {
     const handleDownload = () => {
         const link = document.createElement('a')
         link.href = reportURL
-        link.download = 'research_report.pdf'
+        link.download = 'strategy_report.pdf'
         link.click()
     }
 

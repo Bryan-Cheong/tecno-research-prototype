@@ -35,7 +35,7 @@ export default function ChatBox(
         const input = userInput.toLowerCase().trim()
 
         // Research
-        if (input.includes('research')) {
+        if (input.includes('strategy')) {
             return "TRIGGER_RESEARCH_AGENT" 
         }
     
@@ -88,7 +88,7 @@ export default function ChatBox(
         
         // Greetings
         if (input.includes('hello') || input.includes('hi')) {
-            return "Hello! I'm ready to help analyze ESG opportunities for Borgo Egnazia. Feel free to share your thoughts on any of the questions I asked!"
+            return "Hello! I'm ready to help create strategies for Borgo Egnazia. Feel free to share your thoughts on any of the questions I asked!"
         }
         
         // Thanks
@@ -97,7 +97,7 @@ export default function ChatBox(
         }
         
         // Default response
-        return "That's valuable information! I'm processing your input to develop tailored ESG insights for Borgo Egnazia. Could you elaborate on any specific aspects you'd like me to focus on?"
+        return "That's valuable information! I'm processing your input to develop tailored ESG insights for Borgo Egnazia."
     }
 
     const chatInput = (
