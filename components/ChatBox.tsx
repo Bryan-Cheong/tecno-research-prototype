@@ -44,13 +44,13 @@ export default function ChatBox(
             (input.includes('areias') && input.includes('sextantio') && input.includes('finca') && 
             input.includes('stakeholder') && input.includes('opportunities') && input.includes('cultural') && 
             input.includes('strengths'))) {
-            return "Thank you for providing so much comprehensive information! I have recorded your competitor preferences (Areias do Seixo, Sextantio, and Finca Serena), stakeholder expectations from travel agents and banks, exciting opportunities in climate-positive retreats and artisan collaborations, your strong connection to Puglian traditions, and your current strengths in energy and local engagement as well as areas for improvement like waste tracking. This gives me an excellent foundation to develop a tailored ESG strategy for Borgo Egnazia. Ready for me to start researching the trends and value at stake? Or do you want to add more information?"
+            return "Thank you for providing so much comprehensive information! I have recorded your competitor preferences (Areias do Seixo, Sextantio, and Finca Serena), stakeholder expectations from travel agents and banks, exciting opportunities in climate-positive retreats and artisan collaborations, your strong connection to Puglian traditions, and your current strengths in energy and local engagement as well as areas for improvement like waste tracking. This gives me an excellent foundation to develop a tailored ESG strategy for Sunshine Resort. Ready for me to start researching the trends and value at stake? Or do you want to add more information?"
         }
 
         // Competitors
         if (input.includes('areias') || input.includes('sextantio') || input.includes('finca') || 
             input.includes('competitor') || input.includes('benchmark')) {
-            return "Great! I've noted your competitor selection. These are excellent hospitality brands to benchmark against. I'll analyze their ESG practices and create comparisons that will help identify best practices and improvement opportunities for Borgo Egnazia."
+            return "Great! I've noted your competitor selection. These are excellent hospitality brands to benchmark against. I'll analyze their ESG practices and create comparisons that will help identify best practices and improvement opportunities for Sunshine Resort."
         }
         
         // Stakeholder expectations
@@ -83,12 +83,12 @@ export default function ChatBox(
         
         // General ESG/sustainability
         if (input.includes('esg') || input.includes('sustainability')) {
-            return "ESG integration is crucial for hospitality leaders like Borgo Egnazia. I can help you develop comprehensive strategies that align with your values while meeting modern sustainability standards."
+            return "ESG integration is crucial for hospitality leaders like Sunshine Resort. I can help you develop comprehensive strategies that align with your values while meeting modern sustainability standards."
         }
         
         // Greetings
         if (input.includes('hello') || input.includes('hi')) {
-            return "Hello! I'm ready to help create strategies for Borgo Egnazia. Feel free to share your thoughts on any of the questions I asked!"
+            return "Hello! I'm ready to help create strategies for Sunshine Resort. Feel free to share your thoughts on any of the questions I asked!"
         }
         
         // Thanks
@@ -97,7 +97,7 @@ export default function ChatBox(
         }
         
         // Default response
-        return "That's valuable information! I'm processing your input to develop tailored ESG insights for Borgo Egnazia."
+        return "That's valuable information! I'm processing your input to develop tailored ESG insights for Sunshine Resort."
     }
 
     const chatInput = (

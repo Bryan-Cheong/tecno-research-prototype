@@ -33,13 +33,13 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
         {
             icon: <FileText className={styles.step_icon} />,
             title: "Filter for Relevant Internal Documents",
-            description: "Scan and filter Tecno's knowledge base to identify relevant ESG frameworks, hospitality best practices, and sustainability data tailored to Borgo Egnazia's profile and objectives outlined in stage 1.",
+            description: "Scan and filter the company profile and research checklist to identify relevant strategy goals related to Sunshine Resort.",
             status: "pending"
         },
         {
             icon: <BarChart3 className={styles.step_icon} />,
             title: "Design Strategy Foundations",
-            description: "Lay the groundwork for Borgo Egnazia’s ESG strategy by defining ambition level, engaging stakeholders, and identifying key areas for sustainability innovation and impact.",
+            description: "Lay the groundwork for Sunshine Resort's ESG strategy by defining ambition level, engaging stakeholders, and identifying key areas for sustainability innovation and impact.",
             status: "pending",
             subItems: [
         {
@@ -59,7 +59,7 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
         {
             icon: <PenTool className={styles.step_icon} />,
             title: "Create Comprehensive Report",
-            description: "Synthesize findings into a tailored ESG strategy for Borgo Egnazia, including benchmarks, improvement recommendations, and implementation roadmap.",
+            description: "Synthesize findings into a tailored ESG strategy for Sunshine Resort, including benchmarks, improvement recommendations, and implementation roadmap.",
             status: 'pending'
         }
     ]
@@ -83,21 +83,21 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
             setCurrentStep(1)
             // Simulate sub-item completion for step 2
             const step2SubItems = [
-                "Regulation", "Technology", "Societal expectations", "Stakeholder pressure", "Industry forces",
-                "Compliance", "Reputation", "Cost savings and efficiency", "Risks", "Opportunities"
+                "Ambition", "Double Materiality", "Stakeholder Co-creation",
+                "Systemic Impact", "Monetisation", "Sustainability-oriented Innovation"
             ]
             
             step2SubItems.forEach((item, index) => {
                 setTimeout(() => {
                     setCompletedSubItems(prev => new Set([...prev, item]))
-                }, (index + 1) * 2000) // 2 seconds per sub-item
+                }, (index + 1) * 1000) // 1 second per sub-item
             })
-        }, 10000)
+        }, 3000)
 
         // Step 3: Report creation (10 seconds)
         setTimeout(() => {
             setCurrentStep(2)
-        }, 40000)
+        }, 10000)
         
         // Complete research
         setTimeout(() => {
@@ -109,7 +109,7 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
                 const completionMessage: AgentChatMemory = {
                     user_id: 'mock_user',
                     chat_id: `${chatId}-completion`,
-                    content: "🎯 Great! Your ESG strategy report is ready. Click the button in the top-right to view a curated list of initiatives designed to kick-start Borgo Egnazia’s sustainability journey — including goal alignment, phased action plans, and tailored strategies across environmental, social, and governance dimensions. Ready to put your ESG plan into action?",
+                    content: "🎯 Great! Your ESG strategy report is ready. Click the button in the top-right to view a curated list of initiatives designed to kick-start Sunshine Resort's sustainability journey — including goal alignment, phased action plans, and tailored strategies across environmental, social, and governance dimensions.",
                     source: 'agent',
                     agent_name: 'Assistant',
                     assets: [],
@@ -117,7 +117,7 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
                 }
                 setMessages(prev => [...prev, completionMessage])
             }
-        }, 50000)
+        }, 20000)
     }
 
     const getStepStatus = (index: number) => {
@@ -176,14 +176,14 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
                     <div className={styles.completion_header}>
                         <CheckCircle className={styles.check_icon} />
                         <div>
-                            <h2 className={`${styles.title} ${fonts.body}`}>ESG Research Complete!</h2>
+                            <h2 className={`${styles.title} ${fonts.body}`}>ESG Strategy Complete!</h2>
                             <p className={`${styles.completion_text} ${fonts.body}`}>
-                                Your comprehensive ESG analysis is ready to view.
+                                Your comprehensive ESG strategy is ready to view.
                             </p>
                         </div>
                     </div>
                 ) : (
-                    <h2 className={`${styles.title} ${fonts.body}`}>ESG Best Practices Research</h2>
+                    <h2 className={`${styles.title} ${fonts.body}`}>ESG Strategy Research</h2>
                 )}
             </div>
 
