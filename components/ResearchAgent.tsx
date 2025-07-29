@@ -109,7 +109,7 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
                 const completionMessage: AgentChatMemory = {
                     user_id: 'mock_user',
                     chat_id: `${chatId}-completion`,
-                    content: "🎯 Great! Your ESG strategy report is ready. Click the button in the top-right to view a curated list of initiatives designed to kick-start Sunshine Resort's sustainability journey — including goal alignment, phased action plans, and tailored strategies across environmental, social, and governance dimensions.",
+                    content: "🎯 Great! Your ESG strategy report is ready. Click the button in the top-right to view a curated list of initiatives designed to kick-start Sunshine Resort's sustainability journey. The report includes goal alignment, phased action plans, and tailored strategies across environmental, social, and governance dimensions.",
                     source: 'agent',
                     agent_name: 'Assistant',
                     assets: [],
@@ -219,7 +219,7 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
                             disabled={isResearching}
                         >
                             <Play className={styles.play_icon} />
-                            {isResearching ? 'Researching...' : 'Start research'}
+                            {isResearching ? 'Creating...' : 'Create strategy'}
                         </button>
                     )}
                 </div>

@@ -23,13 +23,13 @@ import { AgentChatMemory } from '@/types/app.types'
 // Styles
 import styles from '@/styles/components/pages/ChatPage.module.css'
 
-const INITIAL_AGENT_MESSAGE = `👋 Hello, I’m your Strategy & Reporting Agent, designed to help kick-start your ESG journey.
+const INITIAL_AGENT_MESSAGE = `👋 Hello, I'm your Strategy & Reporting Agent, designed to help kick-start your ESG journey.
 I see that you're operating in the hotel industry, and you're looking to develop actionable 
-strategies to meet your Environmental, Social, and Governance (ESG) goals.I'm here 
+strategies to meet your Environmental, Social, and Governance (ESG) goals. I'm here 
 to guide you through this process, from identifying relevant initiatives to drafting 
 tailored ESG strategies and reports aligned with global standards like the SDGs and GRI-lite.
 To get started, simply type "Strategy" and I will generate a report containing a curated 
-list of practical strategies your company can begin implementing right away. Let’s 
+list of practical strategies your company can begin implementing right away. Let's 
 co-create a sustainability roadmap that drives real impact. 🌱`
 
 export default function ChatPage({ mockMessages }: { mockMessages?: AgentChatMemory[] }) {

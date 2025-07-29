@@ -228,10 +228,12 @@ export default function ChatBox(
 
     return (
         <div className={styles.main_container}>
-            {/* Selected files */}
-            <div className={styles.selected_files_container}>
-                {renderFilesPreview()}
-            </div>
+            {/* Selected files - only show container when files exist */}
+            {files.length > 0 && (
+                <div className={styles.selected_files_container}>
+                    {renderFilesPreview()}
+                </div>
+            )}
             <div className={styles.sub_container}>
                 {/* File Upload */}
                 <div className={styles.file_upload_container}>
