@@ -31,7 +31,7 @@ export default function DocumentPage() {
     const handleDownload = () => {
         const link = document.createElement('a')
         link.href = reportURL
-        link.download = 'strategy_report.pdf'
+        link.download = 'Sunshine_Resort_Strategy_Report.pdf'
         link.click()
     }
 
