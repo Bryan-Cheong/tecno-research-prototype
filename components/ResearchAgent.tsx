@@ -178,7 +178,7 @@ export default function ResearchAgent({ setMessages, chatId }: ResearchAgentProp
                         <div>
                             <h2 className={`${styles.title} ${fonts.body}`}>ESG Strategy Complete!</h2>
                             <p className={`${styles.completion_text} ${fonts.body}`}>
-                                Your comprehensive ESG strategy is ready to view.
+                                Your tailored ESG strategy is ready to view.
                             </p>
                         </div>
                     </div>
